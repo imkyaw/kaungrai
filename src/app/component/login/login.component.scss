@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    margin: 10% auto;
+    max-width: 240px;
+    min-height: 240px;
+    padding: 20px;
+    // background: rgba(darken($primary,40%), 0.85);
+  }
+.login {
+    button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,28 @@
+@import "../../../assets/css/theme.scss";
+.sidenav {
+    height: 100%;
+    // background-color: #ccc;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #000000;
+    width: 100%;
+    display: block;
+    // margin-bottom: 10px;
+  }
+  
+  .sidenav a:hover {
+    color: $primary-color !important;
+  }
+  .active-list-item {
+    color: $primary-color !important;
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 12px;}
+  }

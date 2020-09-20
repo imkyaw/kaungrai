@@ -1,0 +1,44 @@
+<div class="main-container">
+    <div id="main-menu" class="content-container-col-2 content-container-first">
+        <app-main-menu></app-main-menu>      
+    </div>
+    <div class="content-container-col-6 content-container-second" fxLayout="column" fxLayoutGap="12px">               
+        <label class="image-upload-container btn" style="max-width: 126px;">
+            <span><mat-icon>image</mat-icon> Upload Image</span>
+            <input #imageInput
+                type="file"
+                accept="image/*"
+                (change)="processFile(imageInput)">
+        </label>
+        <div *ngIf="selectedFile" class="img-preview-container">
+
+            <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+                [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+            </div>
+        
+            <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+            <div class="img-spinning-circle"></div>
+            </div>
+        
+            <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+            <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+        </div>
+        <div  fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="8px">
+            <button mat-flat-button class="edit-btn" *ngIf="!editHide" (click)="toggleEditMode()">Edit</button>
+            <button mat-flat-button class="edit-btn" *ngIf="editHide" (click)="toggleEditMode()">Cancel</button>
+            <button mat-flat-button class="image-del-btn" (click)="deleteImgSet()">Delete</button>
+        </div>
+
+        <div *ngIf="imageSet && imageSet !== null" >
+            <h3>{{imageSet.title}}</h3>
+            <div *ngIf="imageSet.images !== null" class="image-card">
+                <mat-grid-list cols="{{imageSet.images.length > 1 ? 2 : 1}}" rowHeight="2:1">
+                    <mat-grid-tile *ngFor="let i of imageSet.images"><img src="{{getImageUrl()}}{{i}}" alt=""><button mat-flat-button class="image-del-btn" *ngIf="editHide" (click)="deleteImage(i)"><mat-icon>delete</mat-icon></button></mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,21 @@
+<div class="main-container">
+    <div id="main-menu" class="content-container-col-2 content-container-first">
+        <app-main-menu></app-main-menu>      
+    </div>
+    <div class="content-container-col-6 content-container-second" fxLayout="column" fxLayoutGap="12px">
+        <h3>Create Contact</h3>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter Title</mat-label>
+            <input matInput placeholder="Enter Title" [(ngModel)]="contact.title" name="title" id="title" required>
+          <!-- <mat-error *ngIf="language.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter description</mat-label>
+            <input matInput placeholder="Enter description" [(ngModel)]="contact.description" name="description" id="description" required>
+            <!-- <mat-error *ngIf="language.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+        <button mat-flat-button class="create-btn" type="submit" (click)="submitContact()">
+            Submit
+        </button>
+    </div>
+</div>

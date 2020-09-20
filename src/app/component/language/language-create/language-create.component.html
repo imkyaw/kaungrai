@@ -1,0 +1,17 @@
+<div class="main-container">
+  <div class="content-container-col-2 content-container-first">
+      <app-main-menu></app-main-menu>      
+  </div>
+  <div class="content-container-col-6 content-container-second" fxLayout="column" fxLayoutGap="12px">
+    <h3>Create Language</h3>
+      <mat-form-field>
+        <mat-label>Enter Language</mat-label>
+        <input matInput placeholder="Enter Language" [(ngModel)]="language" name="language" id="language" required>
+        <!-- <mat-error *ngIf="language.invalid">{{getErrorMessage()}}</mat-error> -->
+      </mat-form-field>
+      <button mat-flat-button class="create-btn" type="submit" (click)="submitLanguage()">
+        Submit
+      </button>
+    
+  </div>
+</div>

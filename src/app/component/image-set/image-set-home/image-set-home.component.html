@@ -1,0 +1,36 @@
+<div class="main-container">
+    <div class="content-container-col-2 content-container-first">
+        <app-main-menu></app-main-menu>      
+    </div>
+    <div class="content-container-col-6 content-container-second" fxLayout="column" fxLayoutGap="12px">
+        <div fxLayout="row" class="header" fxLayoutAlign="center center">
+            <button mat-flat-button class="create-btn" type="submit" (click)="createImgSet()">
+                Create
+            </button>
+            <div class="search">
+                <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="search">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="title">
+                  <th mat-header-cell *matHeaderCellDef> Title. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container> 
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef> Date. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'mediumDate'}} </td>
+                </ng-container> 
+                <ng-container matColumnDef="button">
+                    <th mat-header-cell *matHeaderCellDef>  </th>
+                    <td mat-cell *matCellDef="let element"> <button mat-button class="view-btn" (click)="gotoDetail(element._id)">View</button></td>
+                </ng-container> 
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

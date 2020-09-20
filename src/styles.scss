@@ -1,1 +1,222 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./assets/css/theme.scss";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$col-2-width: 236px;
+$col-3-width: 364px;
+$col-4-width: 492px;
+$col-5-width: 620px;
+$col-6-width: 748px; // 784px;
+$col-8-width: 1004px;
+$col-10-width: 1260px;
+
+$sticky-top: 66px;
+$gutter-space: 20px;
+#main-menu .main-menu-container {
+  width: $col-2-width;
+}
+.main-menu-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-bottom: 30px;
+  // custom scrollbar behavior
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
+}
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 100%;
+    margin: 16px 0px 0px 0px;
+}
+.content-containers {
+    margin: 0px 0px 0px $gutter-space;
+  }
+.content-container-first {
+    margin-left: 0px;
+    height: calc(100vh - #{$sticky-top});
+    overflow-x: hidden;
+    overflow-y: auto;
+    // for menu to stick in desktop
+    position: sticky;
+    top: $sticky-top;
+}
+
+.content-container-col-2 {
+    @extend .content-containers;
+    width: $col-2-width;
+  }
+  
+  .content-container-col-3 {
+    @extend .content-containers;
+    width: $col-3-width;
+  
+    .mat-divider {
+      margin: 16px 0;
+    }
+  }
+  
+  .content-container-col-4 {
+    @extend .content-containers;
+    width: $col-4-width;
+  }
+  
+  .content-container-col-5 {
+    @extend .content-containers;
+    width: $col-5-width;
+  }
+  
+  .content-container-col-6 {
+    @extend .content-containers;
+    width: $col-6-width;
+  }
+  
+  .content-container-col-8 {
+    @extend .content-containers;
+    width: $col-8-width;
+  }
+  
+  .content-container-col-10 {
+    @extend .content-containers;
+    width: 100vw;
+  }
+
+
+table {
+  width: 100%;
+}
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  // mat-cell{
+  //   display:flex !important;
+  //   justify-content:center!important;
+  //   max-width: 150px;
+  //   min-width: 50px;
+  // }
+  
+  // mat-header-cell {
+  //   display:flex;
+  //   justify-content:center;
+  // }
+}
+.mat-column-title {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 56% !important;
+  width: 58% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}
+.mat-column-language {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  overflow: hidden;
+  flex: 0 0 26% !important;
+  max-width: 28% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  // overflow: hidden;
+  // height: 60px;
+}
+.mat-column-date {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  overflow: hidden;
+  flex: 0 0 12% !important;
+  max-width: 15% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  // overflow: hidden;
+  // height: 60px;
+}
+.mat-column-button {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  overflow: hidden;
+  flex: 0 0 14% !important;
+  width: 16% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  // overflow: hidden;
+  .mat-button {
+    padding: 0 8px !important;
+    min-width: 32px !important;
+  }
+  // height: 60px;
+}
+.mat-cell {
+  overflow: hidden;
+  padding-right: 10px !important;
+  height: 50px;
+}
+.create-btn {
+  max-width: 100px;
+  color: $btn-text-color;
+  background-color: $primary-color;
+}
+.submit-btn {
+  color: $btn-text-color;
+  background-color: $primary-color;
+}
+.delete-btn {
+  // max-width: 60px;
+  color: $delete-color;
+  // background-color: $delete-color;
+}
+.view-btn {
+  color: $secondary-color;
+}
+.image-del-btn {
+  max-width: 100px;
+  color: $btn-text-color;
+  background-color: $delete-color;
+}
+.edit-btn {
+  max-width: 100px;
+  color: $btn-text-color;
+  background-color: $secondary-color;
+}
+.active-list-item {
+  color: $primary-color !important;
+}
+// .image-del-btn {
+//   color: $secondary-color;
+// }

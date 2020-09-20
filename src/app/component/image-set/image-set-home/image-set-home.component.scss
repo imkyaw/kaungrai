@@ -1,0 +1,14 @@
+@import "../../../../assets/css/theme.scss";
+.header {
+    h3 {
+        color: $primary-color;
+        font-size: 24px;
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+    .search {
+        display: flex;
+        margin-left: auto;
+    }
+
+}

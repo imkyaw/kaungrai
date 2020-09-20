@@ -1,0 +1,27 @@
+<div class="main-container">
+    <div class="content-container-col-2 content-container-first">
+        <app-main-menu></app-main-menu>      
+    </div>
+    <div class="content-container-col-6 content-container-second" fxLayout="column" fxLayoutGap="12px">
+        <h3>Image Content</h3>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter Title</mat-label>
+            <input matInput placeholder="Enter Title" [(ngModel)]="imageSet.title" name="title" id="title" required>
+          <!-- <mat-error *ngIf="language.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <!-- <mat-error *ngIf="language.invalid">{{getErrorMessage()}}</mat-error> -->
+            <mat-label>Choose language</mat-label>
+            <mat-select [(ngModel)]="imageSet.lang"
+            id="language" name="language">
+                <mat-option *ngFor="let l of langList" [value]="l._id" (click)="updateLang(l._id)">{{l.lang}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-flat-button class="create-btn" type="submit" (click)="imageSetCreate()">
+            Submit
+        </button>
+    </div>
+</div>
+
+
+
