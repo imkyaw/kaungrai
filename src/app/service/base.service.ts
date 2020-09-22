@@ -6,6 +6,7 @@ import { Observable } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { EnumResponseStatus } from '../shared/app-helper'
 import { Router } from '@angular/router'
+import { throwError } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,11 @@ export class BaseService {
   private bRouter: Router
   constructor(
      http: Http,
+     router: Router,
      httpClient: HttpClient = null,
   ) {
     this.bHttpClient = httpClient
+    this.bRouter = router
     this.apiUrl = environment.apiUrl
     this.bHttp = http
   }
@@ -38,8 +41,9 @@ export class BaseService {
     return new HttpHeaders({ 'Content-Type':'multipart/form-data', 'x-auth-token': localStorage.getItem('token') })
   }
 
-  protected handledError(response: any) {
-    if(response.status === EnumResponseStatus.TokenExpiredError && response.message.name === "TokenExpiredError") {
+  protected handleError(response: any) {
+    console.log(response)
+    if(response.error.status === EnumResponseStatus.TokenExpiredError && response.error.message.name === "TokenExpiredError") {
       if (!this._sessionExpired) {
         this._sessionExpired = true
         if (!this.bRouter.url.startsWith('/login')) {
@@ -47,6 +51,7 @@ export class BaseService {
         }
       }
     }
+    return throwError(response)
   }
 
   protected getAPI(
@@ -56,7 +61,9 @@ export class BaseService {
     } = {}) {
     let url = ''
     url = environment.apiUrl + apiRoute
-    return this.bHttpClient.get(url, headerConfig).pipe( 
+    return this.bHttpClient.get(url, headerConfig)
+    .pipe(
+      catchError(error => this.handleError(error))
     )
   }
 
@@ -69,6 +76,9 @@ export class BaseService {
     let url = ''
     url = environment.apiUrl + apiRoute
     return this.bHttpClient.post(url, body, headerConfig)
+    .pipe(
+      catchError(error => this.handleError(error))
+    )
   }
 
   protected postImageAPI(
@@ -80,6 +90,9 @@ export class BaseService {
     let url = ''
     url = environment.apiUrl + apiRoute
     return this.bHttpClient.post(url, body, headerConfig)
+    .pipe(
+      catchError(error => this.handleError(error))
+    )
   }
 
   protected patchAPI(
@@ -91,6 +104,9 @@ export class BaseService {
     let url = ''
     url = environment.apiUrl + apiRoute
     return this.bHttpClient.patch(url, body, headerConfig)
+    .pipe(
+      catchError(error => this.handleError(error))
+    )
   }
 
   protected deleteAPI(
@@ -101,6 +117,9 @@ export class BaseService {
     let url = ''
     url = environment.apiUrl + apiRoute
     return this.bHttpClient.delete(url, headerConfig)
+    .pipe(
+      catchError(error => this.handleError(error))
+    )
   }
 
   protected deleteAPI2(
@@ -113,5 +132,8 @@ export class BaseService {
     url = environment.apiUrl + apiRoute
     const t = new HttpRequest("DELETE", url, body, headerConfig)
     return this.bHttpClient.request(t)
+    .pipe(
+      catchError(error => this.handleError(error))
+    )
   }
 }

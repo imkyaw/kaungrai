@@ -81,6 +81,7 @@ export class ContentDetailComponent implements OnInit {
         this.contentService.deleteContent(this.contentId).subscribe(res => {
           if (res.status === EnumResponseStatus.Accepted) {
             alert("successfully deleted")
+            this.router.navigate([`/content`])
           }
         })
       }
@@ -94,7 +95,7 @@ export class ContentDetailComponent implements OnInit {
       data: {title: title, message: message}
     }).afterClosed().subscribe(res => {
       if (res) {
-        this.contentService.deleteImage(this.contentId, img).subscribe(result => {
+        this.contentService.deleteContentImage(this.contentId, img).subscribe(result => {
           if (result.status === EnumResponseStatus.Accepted) {
             alert("The image is deleted")
             this.populateImage(img)

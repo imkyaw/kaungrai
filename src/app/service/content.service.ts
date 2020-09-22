@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
-
+import { Router } from '@angular/router'
 @Injectable({
   providedIn: 'root'
 })
@@ -11,9 +11,10 @@ export class ContentService extends BaseService{
 
   constructor(
     http: Http,
+    router: Router,
     httpClient: HttpClient,
   ) { 
-    super(http, httpClient)
+    super(http, router, httpClient)
   }
   getContent(): Observable<any> {
     const apiUrl = 'content/'

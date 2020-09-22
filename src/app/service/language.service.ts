@@ -4,6 +4,7 @@ import { Http, HttpModule } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Language } from '../model/language'
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router'
 @Injectable({
   providedIn: 'root'
 })
@@ -11,9 +12,10 @@ export class LanguageService extends BaseService{
 
   constructor(
     http: Http,
+    router: Router,
     httpClient: HttpClient,
   ) {
-    super(http,httpClient)
+    super(http, router, httpClient)
    }
 
   getLanguage(): Observable<any> {
