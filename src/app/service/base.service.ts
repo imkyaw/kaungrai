@@ -22,12 +22,17 @@ export class BaseService {
     this.apiUrl = environment.apiUrl
     this.bHttp = http
   }
+
   authorizationHttpHeader(): HttpHeaders {
     return new HttpHeaders({ 'x-auth-token': localStorage.getItem('token') })
   }
 
   getPostHttpHeader(): HttpHeaders {
     return new HttpHeaders({ 'Content-Type':'application/json', 'x-auth-token': localStorage.getItem('token') })
+  }
+
+  getPostImageHttpHeader(): HttpHeaders {
+    return new HttpHeaders({ 'Content-Type':'multipart/form-data', 'x-auth-token': localStorage.getItem('token') })
   }
 
   protected getAPI(
@@ -37,8 +42,7 @@ export class BaseService {
     } = {}) {
     let url = ''
     url = environment.apiUrl + apiRoute
-    return this.bHttpClient.get(url, headerConfig).pipe(
-      
+    return this.bHttpClient.get(url, headerConfig).pipe( 
     )
   }
 
@@ -50,6 +54,23 @@ export class BaseService {
     } = {}) {
     let url = ''
     url = environment.apiUrl + apiRoute
+    console.log(url)
+    console.log(body.get('image'))
+    console.log(headerConfig.headers)
+    return this.bHttpClient.post(url, body, headerConfig)
+  }
+
+  protected postImageAPI(
+    apiRoute: string,
+    body: any,
+    {
+      headerConfig = { headers: this.authorizationHttpHeader() },
+    } = {}) {
+    let url = ''
+    url = environment.apiUrl + apiRoute
+    console.log(url)
+    console.log(body.get('image'))
+    console.log(headerConfig)
     return this.bHttpClient.post(url, body, headerConfig)
   }
 
@@ -85,17 +106,4 @@ export class BaseService {
     const t = new HttpRequest("DELETE", url, body, headerConfig)
     return this.bHttpClient.request(t)
   }
-
-  // logInUser(email: string, password: string): Promise<any> {
-  //   const body = { email: email, password: password }
-  //   const headerConfig = { headers: httpHeaders }
-  //   return this.http.post(this.authUrl, body).toPromise().then(
-  //     res => {
-  //       if (res.status === 200) {
-  //         const resBody = res.json()
-  //         localStorage.setItem('access_token', resBody.payload.token)
-  //       }
-  //       return res
-  //     })
-  // }
 }

@@ -20,6 +20,7 @@ export class ImageSetHomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // if(localStorage.getItem('token'))
     this.imageSetService.getImgSet().subscribe(res => {
       if (res.status == EnumResponseStatus.Success) {
         this.imageSet = res.payload  

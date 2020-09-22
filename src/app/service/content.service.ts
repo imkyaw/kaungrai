@@ -24,11 +24,11 @@ export class ContentService extends BaseService{
     const body = {title: title, body: content, lang: lang}
     return super.postAPI(apiUrl, body)
   }
-  addImageConent(id: string, image: File): Observable<any> {
+  uploadImage(id: string, image: File): Observable<any> {
     const apiUrl = 'content/img/' + id
     const body = new FormData()
-    body.append('image', image)
-    return super.postAPI(apiUrl, body)
+    body.append('image', image, image.name)
+    return super.postImageAPI(apiUrl, body)
   }
   deleteContent(id: string): Observable<any> {
     const apiUrl = 'content/' + id

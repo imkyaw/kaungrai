@@ -16,7 +16,7 @@ input {
   .img-preview-container {
     background-color: #f7f7f7;
     position: relative;
-    max-width: 126px;
+    max-width: 156px;
     .img-preview {
       background: center center no-repeat;
       background-size: contain;
@@ -26,6 +26,9 @@ input {
       &-error {
         display: none;
       }
+    }
+    .alert {
+      max-width: fit-content !important;
     }
   }
   

@@ -15,7 +15,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
     <div mat-dialog-actions>
         <button mat-button (click)="onDismiss()">No</button>
-        <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+        <button mat-raised-button class="edit-btn" (click)="onConfirm()">Yes</button>
     </div>
     `
 })

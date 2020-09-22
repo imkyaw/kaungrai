@@ -45,6 +45,9 @@ export class ImageSetDetailComponent implements OnInit {
   getImageUrl() {
     return "https://vkadmin.thantzin.pro/images/medium/"
   }
+  getOriginalImageUrl() {
+    return "https://vkadmin.thantzin.pro/images/original/"
+  }
   private onSuccess() {
     this.selectedFile.pending = false;
     this.selectedFile.status = 'ok';
@@ -55,14 +58,15 @@ export class ImageSetDetailComponent implements OnInit {
     this.selectedFile.status = 'fail';
     this.selectedFile.src = '';
   }
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
+  processFile(event) {
+    const file: File = event.target.files[0]
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
 
       this.selectedFile = new ImageSnippet(event.target.result, file);
-      this.imageService.uploadImage(this.imgSetId, this.selectedFile.file).subscribe(res => {
+      this.imageService.uploadImage(this.imgSetId, file).subscribe(res => {
         this.onSuccess();
+        // this.populateUploadedImage(file.name)
       }, (err) => {
         this.onError();
       })
@@ -110,5 +114,7 @@ export class ImageSetDetailComponent implements OnInit {
   populateImage(img: string) {
     this.imageSet.images = this.imageSet.images.filter(x => x !== img)
   }
-  
+  populateUploadedImage(img: string) {
+    this.imageSet.images.push(img)
+  }
 }

@@ -30,8 +30,9 @@ export class ImageSetService extends BaseService{
   uploadImage(id: string, image: File): Observable<any> {
     const apiUrl = 'imgSet/img/' + id
     const body = new FormData()
-    body.append('image', image)
-    return super.postAPI(apiUrl, body)
+    console.log(image)
+    body.append('image', image, image.name)
+    return super.postImageAPI(apiUrl, body)
   }
 
   deleteImageSet(id: string): Observable<any> {

@@ -3,30 +3,21 @@
         <app-main-menu></app-main-menu>      
     </div>
     <div class="content-container-col-6 content-container-second" fxLayout="column" fxLayoutGap="12px">               
-        <!-- <label class="image-upload-container btn">
+        <label class="image-upload-container btn" style="max-width: 126px;">
             <span><mat-icon>image</mat-icon> Upload Image</span>
             <input #imageInput
                 type="file"
-                accept="image/*"
-                (change)="processFile(imageInput)">
+                accept=".jpg, .jpeg, .png"
+                (change)="processFile($event)">
         </label>
         <div *ngIf="selectedFile" class="img-preview-container">
-
-            <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
-                [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
-            </div>
-        
-            <div *ngIf="selectedFile.pending" class="img-loading-overlay">
-            <div class="img-spinning-circle"></div>
-            </div>
-        
             <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
             <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
-        </div> -->
+        </div>
         <div  fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="8px">
-            <button mat-flat-button color="accent" *ngIf="!editHide" (click)="toggleEditMode()">Edit</button>
-            <button mat-flat-button color="accent" *ngIf="editHide" (click)="toggleEditMode()">Cancel</button>
-            <button mat-flat-button color="accent" (click)="deleteContent()">Delete</button>
+            <button mat-flat-button class="edit-btn" *ngIf="!editHide" (click)="toggleEditMode()">Edit</button>
+            <button mat-flat-button class="edit-btn" *ngIf="editHide" (click)="toggleEditMode()">Cancel</button>
+            <button mat-flat-button class="image-del-btn" (click)="deleteContent()">Delete</button>
         </div>
 
         <div *ngIf="content && content !== null">
@@ -36,7 +27,12 @@
             </div>
             <div class="image-card" *ngIf="content.images !== null && content.images">
                 <mat-grid-list cols="{{content.images.length > 1 ? 2 : 1}}" rowHeight="2:1">
-                    <mat-grid-tile *ngFor="let i of content.images"><img src="{{getImageUrl()}}{{i}}" alt=""><button mat-flat-button *ngIf="editHide" (click)="deleteContentImg()"><mat-icon>delete</mat-icon></button></mat-grid-tile>
+                    <mat-grid-tile *ngFor="let i of content.images">
+                        <a href="{{getOriginalImageUrl()}}{{i}}" target="_blank">
+                            <img src="{{getImageUrl()}}{{i}}" alt="">
+                        </a>
+                        <button mat-flat-button class="image-del-btn" *ngIf="editHide" (click)="deleteContentImg(i)"><mat-icon>delete</mat-icon></button>
+                    </mat-grid-tile>
                 </mat-grid-list>
             </div>
         </div>
