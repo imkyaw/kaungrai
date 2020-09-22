@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { Response, Http, Headers } from '@angular/http'
 import { Observable } from 'rxjs'
 import { catchError } from 'rxjs/operators'
+import { EnumResponseStatus } from '../shared/app-helper'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ export class BaseService {
   private bHttpClient: HttpClient
   apiUrl: string = null
   private bHttp
-
+  private _sessionExpired = false
+  private bRouter: Router
   constructor(
      http: Http,
      httpClient: HttpClient = null,
@@ -35,6 +38,17 @@ export class BaseService {
     return new HttpHeaders({ 'Content-Type':'multipart/form-data', 'x-auth-token': localStorage.getItem('token') })
   }
 
+  protected handledError(response: any) {
+    if(response.status === EnumResponseStatus.TokenExpiredError && response.message.name === "TokenExpiredError") {
+      if (!this._sessionExpired) {
+        this._sessionExpired = true
+        if (!this.bRouter.url.startsWith('/login')) {
+          this.bRouter.navigate(['/login'], { queryParams: { redirect: this.bRouter.url } })
+        }
+      }
+    }
+  }
+
   protected getAPI(
     apiRoute: string,
     {
@@ -54,9 +68,6 @@ export class BaseService {
     } = {}) {
     let url = ''
     url = environment.apiUrl + apiRoute
-    console.log(url)
-    console.log(body.get('image'))
-    console.log(headerConfig.headers)
     return this.bHttpClient.post(url, body, headerConfig)
   }
 
@@ -68,9 +79,6 @@ export class BaseService {
     } = {}) {
     let url = ''
     url = environment.apiUrl + apiRoute
-    console.log(url)
-    console.log(body.get('image'))
-    console.log(headerConfig)
     return this.bHttpClient.post(url, body, headerConfig)
   }
 

@@ -34,6 +34,11 @@ export class ContentService extends BaseService{
     const apiUrl = 'content/' + id
     return super.deleteAPI(apiUrl)
   }
+  deleteContentImage(id: string, img: string): Observable<any> {
+    const apiUrl = 'content/img/' + id 
+    const body = { image: img }
+    return super.deleteAPI2(apiUrl, body)
+  }
   getContentbyId(id: string): Observable<any> {
     const apiUrl = 'content/' + id
     return super.getAPI(apiUrl)

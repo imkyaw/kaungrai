@@ -16,6 +16,7 @@ import { ContentDetailComponent } from './component/content/content-detail/conte
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'language', component: LanguageHomeComponent },
   { path: 'language/create', component: LanguageCreateComponent },
