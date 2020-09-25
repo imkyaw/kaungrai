@@ -1,5 +1,5 @@
-const apiUrl = 'http://localhost:9562/'
-// const apiUrl = 'https://vkadmin.thantzin.pro/api/kaungrwai/'
+// const apiUrl = 'http://localhost:9562/api/kaungrwai/'
+const apiUrl = 'https://vkadmin.thantzin.pro/api/kaungrwai/'
 
 export const environment = {
   production: true,
