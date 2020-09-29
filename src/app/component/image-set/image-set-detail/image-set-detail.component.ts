@@ -6,7 +6,7 @@ import { ImageSnippet } from '../../../model/image-snippet'
 import { EnumResponseStatus } from '../../../shared/app-helper'
 import { ConfirmDialog } from '../../../dialog/confirm.dialog'
 import { MatDialog } from '@angular/material/dialog'
-
+import { environment } from 'src/environments/environment'
 // class ImageSnippet {
 //   pending: boolean = false;
 //   status: string = 'init';
@@ -43,10 +43,10 @@ export class ImageSetDetailComponent implements OnInit {
     }
   }
   getImageUrl() {
-    return "https://vkadmin.thantzin.pro/images/medium/"
+    return `${environment.imgUrl}images/medium/`
   }
   getOriginalImageUrl() {
-    return "https://vkadmin.thantzin.pro/images/original/"
+    return `${environment.imgUrl}images/original/`
   }
   private onSuccess() {
     this.selectedFile.pending = false;
@@ -66,7 +66,7 @@ export class ImageSetDetailComponent implements OnInit {
       this.selectedFile = new ImageSnippet(event.target.result, file);
       this.imageService.uploadImage(this.imgSetId, file).subscribe(res => {
         this.onSuccess();
-        // this.populateUploadedImage(file.name)
+        this.populateUploadedImage(res)
       }, (err) => {
         this.onError();
       })
@@ -114,7 +114,7 @@ export class ImageSetDetailComponent implements OnInit {
   populateImage(img: string) {
     this.imageSet.images = this.imageSet.images.filter(x => x !== img)
   }
-  populateUploadedImage(img: string) {
-    this.imageSet.images.push(img)
+  populateUploadedImage(res) {
+    this.imageSet.images.push(res.payload.image)
   }
 }

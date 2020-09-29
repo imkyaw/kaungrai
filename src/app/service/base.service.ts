@@ -43,7 +43,22 @@ export class BaseService {
 
   protected handleError(response: any) {
     console.log(response)
-    if(response.error.status === EnumResponseStatus.TokenExpiredError && response.error.message.name === "TokenExpiredError") {
+    if(response === null || response) {
+      if (!this._sessionExpired) {
+        this._sessionExpired = true
+        if (!this.bRouter.url.startsWith('/login')) {
+          this.bRouter.navigate(['/login'], { queryParams: { redirect: this.bRouter.url } })
+        }
+      }
+    }
+    if(response.error.status && response.error.status === EnumResponseStatus.TokenExpiredError && response.error.message.name === "TokenExpiredError") {
+      if (!this._sessionExpired) {
+        this._sessionExpired = true
+        if (!this.bRouter.url.startsWith('/login')) {
+          this.bRouter.navigate(['/login'], { queryParams: { redirect: this.bRouter.url } })
+        }
+      }
+    } else if(response.error.message === "Not Found") {
       if (!this._sessionExpired) {
         this._sessionExpired = true
         if (!this.bRouter.url.startsWith('/login')) {

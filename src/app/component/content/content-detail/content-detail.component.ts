@@ -6,6 +6,7 @@ import { ImageSnippet } from '../../../model/image-snippet'
 import { EnumResponseStatus } from '../../../shared/app-helper'
 import { ConfirmDialog } from '../../../dialog/confirm.dialog'
 import { MatDialog } from '@angular/material/dialog'
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-content-detail',
@@ -37,10 +38,10 @@ export class ContentDetailComponent implements OnInit {
     }
   }
   getImageUrl() {
-    return "https://vkadmin.thantzin.pro/images/medium/"
+    return `${environment.imgUrl}images/medium/`
   }
   getOriginalImageUrl() {
-    return "https://vkadmin.thantzin.pro/images/original/"
+    return `${environment.imgUrl}images/original/`
   }
   toggleEditMode() {
     this.editHide = !this.editHide
@@ -63,6 +64,7 @@ export class ContentDetailComponent implements OnInit {
       this.selectedFile = new ImageSnippet(event.target.result, file);
       this.contentService.uploadImage(this.contentId, file).subscribe(res => {
         this.onSuccess();
+        this.populateUploadedImage(res)
       }, (err) => {
         this.onError();
       })
@@ -106,5 +108,8 @@ export class ContentDetailComponent implements OnInit {
   }
   populateImage(img: string) {
     this.content.images = this.content.images.filter(x => x !== img)
+  }
+  populateUploadedImage(res) {
+    this.content.images.push(res.payload.image)
   }
 }
